@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #333;
+        }
+        .colorindex {
+            width: 480px;
+            height: 20px;
+            position: relative;
+            top: -8.5px;
+            background-color:white
+        }
+        </style>
+</head>
+
+<body>
+    <canvas id="mycanvas" class="mycanvas"></canvas>
+    <div id="color" class="colorindex">
+    </div>
+    <script>
+        const canvas = document.querySelector('#mycanvas')
+        canvas.width = 480
+        canvas.height = 300
+        const mycolor = document.querySelector('#color')
+        const ctx = canvas.getContext('2d')
+        // 定义渐变起止点
+        const colorBland = ctx.createLinearGradient(0, 0, 480, 300)
+        // 增加颜色变换
+        colorBland.addColorStop(0, 'white')
+        colorBland.addColorStop(0.25, 'red')
+        colorBland.addColorStop(0.375, 'yellow')
+        colorBland.addColorStop(0.5, 'green')
+        colorBland.addColorStop(0.625, 'blue')
+        colorBland.addColorStop(0.75, 'violet')
+        colorBland.addColorStop(1, 'black')
+        // colorBland.addColorStop(0, 'white')
+        // colorBland.addColorStop(0.25, 'yellow')
+        // colorBland.addColorStop(0.5, 'green')
+        // colorBland.addColorStop(0.75, 'violet')
+        // colorBland.addColorStop(1, 'black')
+        // 设置上下文颜色样式
+        ctx.fillStyle = colorBland
+        // 绘制矩形
+        ctx.fillRect(0, 0, 480, 300)
+        // 颜色获取
+        let ncolor = ''
+        let getcolor = (ev) => {
+            // 获取偏移值
+            //let rangx = get(canvas)
+            // 根据偏移值去设定坐标
+            let point = {
+                x: ev.clientX ,
+                y: ev.clientY 
+            }
+            let color = ctx.getImageData(point.x, point.y, 1, 1).data
+            ncolor = 'rgba:(' + color[0] + ',' + color[1] + ',' + color[2] + ',1)'
+            mycolor.style.backgroundColor = 'rgba(' + color[0] + ',' + color[1] + ',' + color[2] + ',1)'
+        }
+        // 进入选择状态
+        canvas.addEventListener('mousedown', () => {
+            canvas.addEventListener('mousemove', getcolor)
+        })
+        // 移除选定状态
+        canvas.addEventListener('mouseup', () => {
+            canvas.removeEventListener('mousemove', getcolor)
+        })
+    </script>
+</body>
+
+</html>
