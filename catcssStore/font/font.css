@@ -1,0 +1,25 @@
+/* 字体预设 */
+:root {
+  --font-commercial-rubik: "rubkit";
+
+  /* 调试盘 */
+  --font-test-size: 14px;
+  --font-test-color: #000;
+}
+
+/* 
+考虑到字体需要消耗资源去加载
+默认引入两种自定义字体，若有需要，请自行引入想要的自定义的梯子
+*/
+
+/* 调试字体设置 */
+.commonfont {
+  font-size: var(--font-test-size);
+  color: var(--font-test-color);
+}
+
+/* 字体引入 */
+@font-face {
+  font-family: var(--font-commercial-rubik);
+  src: url(./commercial/RubikMoonrocks-Regular.ttf);
+}
